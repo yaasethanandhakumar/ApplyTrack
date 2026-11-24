@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Delete Application | ApplyTrack</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'applications/style.css' %}">
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-logo">A</div>
+                <h2>ApplyTrack</h2>
+            </div>
+
+            <nav class="sidebar-nav">
+                <p class="nav-heading">WORKSPACE</p>
+
+                <a href="/" class="nav-link">
+                    <span>▦</span> Dashboard
+                </a>
+
+                <a href="/#applications" class="nav-link">
+                    <span>▤</span> My Applications
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Your job search, organized.</p>
+            </div>
+
+        </aside>
+
+        <main class="main-content">
+
+            <header class="top-header">
+                <div>
+                    <h1>Delete Application</h1>
+                    <p>Review your selection before proceeding.</p>
+                </div>
+
+                <div class="header-actions">
+                    <button id="themeToggle"
+                            class="theme-toggle"
+                            type="button">
+                        Dark Mode
+                    </button>
+                </div>
+            </header>
+
+            <section class="form-section">
+
+                <div class="form-container delete-container">
+
+                    <h2>Are you sure?</h2>
+
+                    <p>
+                        You are about to delete this job application:
+                    </p>
+
+                    <div class="delete-details">
+                        <strong>{{ application.job_title }}</strong>
+                        <span>{{ application.company_name }}</span>
+                        <span>{{ application.job_location }}</span>
+                    </div>
+
+                    <p class="delete-warning">
+                        This action cannot be undone.
+                    </p>
+
+                    <form method="POST">
+                        {% csrf_token %}
+
+                        <div class="form-actions">
+
+                            <a href="/" class="cancel-button">
+                                Cancel
+                            </a>
+
+                            <button type="submit" class="delete-button">
+                                Yes, Delete
+                            </button>
+
+                        </div>
+                    </form>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="{% static 'applications/theme.js' %}"></script>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Application | ApplyTrack</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'applications/style.css' %}">
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-logo">A</div>
+                <h2>ApplyTrack</h2>
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <p class="nav-heading">WORKSPACE</p>
+
+                <a href="/" class="nav-link">
+                    <span>▦</span> Dashboard
+                </a>
+
+                <a href="/#applications" class="nav-link">
+                    <span>▤</span> My Applications
+                </a>
+
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Your job search, organized.</p>
+            </div>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <header class="top-header">
+
+                <div>
+                    <h1>Add Application</h1>
+                    <p>Record a new job opportunity in your tracker.</p>
+                </div>
+
+                <div class="header-actions">
+
+                    <button id="themeToggle"
+                            class="theme-toggle"
+                            type="button">
+                        Dark Mode
+                    </button>
+
+                </div>
+
+            </header>
+
+            <!-- Application Form -->
+            <section class="form-section">
+
+                <div class="form-heading">
+                    <h2>Job Details</h2>
+                    <p>Enter the details of the job you're applying for.</p>
+                </div>
+
+                <div class="form-container">
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+
+                        <div class="form-actions">
+
+                            <a href="/" class="cancel-button">
+                                Cancel
+                            </a>
+
+                            <button type="submit" class="save-button">
+                                Save Application
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- Theme JavaScript -->
+    <script src="{% static 'applications/theme.js' %}"></script>
+
+</body>
+</html>

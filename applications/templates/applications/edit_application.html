@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Application | ApplyTrack</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'applications/style.css' %}">
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-logo">A</div>
+                <h2>ApplyTrack</h2>
+            </div>
+
+            <nav class="sidebar-nav">
+                <p class="nav-heading">WORKSPACE</p>
+
+                <a href="/" class="nav-link">
+                    <span>▦</span> Dashboard
+                </a>
+
+                <a href="/#applications" class="nav-link">
+                    <span>▤</span> My Applications
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Your job search, organized.</p>
+            </div>
+
+        </aside>
+
+        <main class="main-content">
+
+            <header class="top-header">
+
+                <div>
+                    <h1>Edit Application</h1>
+                    <p>Update your job application details.</p>
+                </div>
+
+                <div class="header-actions">
+                    <button id="themeToggle"
+                            class="theme-toggle"
+                            type="button">
+                        Dark Mode
+                    </button>
+                </div>
+
+            </header>
+
+            <section class="form-section">
+
+                <div class="form-heading">
+                    <h2>{{ application.job_title }}</h2>
+                    <p>Update the details below and save your changes.</p>
+                </div>
+
+                <div class="form-container">
+
+                    <form method="POST">
+
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+
+                        <div class="form-actions">
+
+                            <a href="/" class="cancel-button">
+                                Cancel
+                            </a>
+
+                            <button type="submit" class="save-button">
+                                Save Changes
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="{% static 'applications/theme.js' %}"></script>
+
+</body>
+</html>

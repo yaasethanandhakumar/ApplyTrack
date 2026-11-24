@@ -1,0 +1,237 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ApplyTrack | Dashboard</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'applications/style.css' %}">
+</head>
+
+<body>
+
+    <div class="app-layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-logo">A</div>
+                <h2>ApplyTrack</h2>
+            </div>
+
+            <nav class="sidebar-nav">
+                <p class="nav-heading">WORKSPACE</p>
+
+                <a href="/" class="nav-link active">
+                    <span>▦</span> Dashboard
+                </a>
+
+                <a href="#applications" class="nav-link">
+                    <span>▤</span> My Applications
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Your job search, organized.</p>
+            </div>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <header class="top-header">
+
+                <div>
+                    <h1>Dashboard</h1>
+                    <p>Welcome back! Here's your job search overview.</p>
+                </div>
+
+                <div class="header-actions">
+
+                    <button id="themeToggle"
+                            class="theme-toggle"
+                            type="button">
+                        Dark Mode
+                    </button>
+
+                    <a href="{% url 'add_application' %}"
+                       class="add-button">
+                        + Add Application
+                    </a>
+
+                </div>
+
+            </header>
+
+            <!-- Dashboard Statistics -->
+            <section class="dashboard-section">
+
+                <h2>Overview</h2>
+
+                <div class="dashboard-stats">
+
+                    <div class="stat-card">
+                        <h3>Total Applications</h3>
+                        <p>{{ total_applications }}</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Assessments</h3>
+                        <p>{{ assessments }}</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Interviews</h3>
+                        <p>{{ interviews }}</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Offers</h3>
+                        <p>{{ offers }}</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- Applications Table -->
+            <section class="applications-section" id="applications">
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>My Applications</h2>
+                        <p>Track and manage your job opportunities.</p>
+                    </div>
+
+                    <!-- Search Form -->
+                    <form method="GET"
+                          action="{% url 'job_list' %}"
+                          class="search-form">
+
+                        <input
+                            type="text"
+                            name="search"
+                            placeholder="Search company or job title..."
+                            value="{{ search_query }}"
+                        >
+
+                        <button type="submit" class="search-button">
+                            Search
+                        </button>
+
+                        {% if search_query %}
+                            <a href="{% url 'job_list' %}"
+                               class="clear-search">
+                                Clear
+                            </a>
+                        {% endif %}
+
+                    </form>
+
+                </div>
+
+                <div class="table-container">
+
+                    <table class="applications-table">
+
+                        <thead>
+                            <tr>
+                                <th>Job Title</th>
+                                <th>Company</th>
+                                <th>Location</th>
+                                <th>Status</th>
+                                <th>Applied Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for application in applications %}
+
+                            <tr>
+
+                                <td class="job-title">
+                                    {{ application.job_title }}
+                                </td>
+
+                                <td>
+                                    {{ application.company_name }}
+                                </td>
+
+                                <td>
+                                    {{ application.job_location }}
+                                </td>
+
+                                <td>
+                                    <span class="status-badge
+                                        {% if application.status == 'APPLIED' %}status-applied
+                                        {% elif application.status == 'ASSESSMENT' %}status-assessment
+                                        {% elif application.status == 'INTERVIEW' %}status-interview
+                                        {% elif application.status == 'SELECTED' %}status-selected
+                                        {% elif application.status == 'REJECTED' %}status-rejected
+                                        {% endif %}">
+                                        {{ application.get_status_display }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    {{ application.application_date }}
+                                </td>
+
+                                <!-- Application Actions -->
+                                <td>
+                                    <div class="action-buttons">
+
+                                        <a href="{% url 'edit_application' application.pk %}"
+                                           class="edit-button">
+                                            Edit
+                                        </a>
+
+                                        <a href="{% url 'delete_application' application.pk %}"
+                                           class="delete-link">
+                                            Delete
+                                        </a>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+
+                            {% empty %}
+
+                            <tr>
+                                <td colspan="6" class="empty-message">
+                                    {% if search_query %}
+                                        No applications found matching "{{ search_query }}".
+                                    {% else %}
+                                        No job applications found.
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- Theme JavaScript -->
+    <script src="{% static 'applications/theme.js' %}"></script>
+
+</body>
+</html>
